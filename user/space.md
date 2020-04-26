@@ -31,6 +31,81 @@
 
 基本同「[视频详细信息](https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/video/info.md#视频详细信息（avID/bvID互转）)」中的data对象
 
+| 字段        | 类型 | 内容                           | 备注                    |
+| ----------- | ---- | ------------------------------ | ----------------------- |
+| aid         | num  | 视频avID                       |                         |
+| videos      | num  | 视频分P总数                    | 默认为1                 |
+| tid         | num  | 分区ID                         |                         |
+| tname       | str  | 子分区名称                     |                         |
+| copyright   | num  | 版权标志                       | 1：自制<br />2：转载    |
+| pic         | str  | 视频封面图片url                |                         |
+| title       | str  | 视频标题                       |                         |
+| pubdate     | num  | 视频上传时间                   | 时间戳                  |
+| ctime       | num  | 视频审核通过时间               | 时间戳                  |
+| desc        | str  | 视频简介                       |                         |
+| state       | num  | 0                              | 作用尚不明确            |
+| attribute   | num  |                                | 作用尚不明确            |
+| duration    | num  | 视频总计持续时长（所有分P）    | 单位为秒                |
+| rights      | obj  | 视频属性标志                   |                         |
+| owner       | obj  | 视频UP主信息                   |                         |
+| stat        | obj  | 视频状态数                     |                         |
+| dynamic     | str  | 视频同步发布的的动态的文字内容 | 无为空                  |
+| cid         | num  | 视频1P CID                     |                         |
+| dimension   | obj  | 视频1P分辨率                   |                         |
+| bvid        | str  | 视频bvID                       |                         |
+| reason      | str  | 置顶视频备注                   |                         |
+| inter_video | bool | 是否为合作视频                 | false：否<br />ture：是 |
+
+`data`中的`rights`对象：
+
+| 字段            | 类型 | 内容             | 备注                                     |
+| --------------- | ---- | ---------------- | ---------------------------------------- |
+| bp              | num  | 0                | 作用尚不明确                             |
+| elec            | num  | 0                | 作用尚不明确                             |
+| download        | num  | 允许下载标志     | 0：不允许<br />1：允许                   |
+| movie           | num  | 视频时电影标志   | 0：否<br />1：是                         |
+| pay             | num  | 仅会员可观看标志 | 0：无<br />1：有                         |
+| hd5             | num  | 有高码率标志     | 0：无<br />1：有                         |
+| no_reprint      | num  | 禁止转载标志     | 0：无<br />1：禁止                       |
+| autoplay        | num  | 可自动播放标志   | 0：无<br />1：有  区别影视番剧与普通视频 |
+| ugc_pay         | num  | 0                | 作用尚不明确                             |
+| is_cooperation  | num  | 视频合作标志     | 0：无<br />1：是                         |
+| ugc_pay_preview | num  | 0                | 作用尚不明确                             |
+| no_background   | num  | 0                | 作用尚不明确                             |
+
+`data`中的`owner`对象：
+
+| 字段 | 类型 | 内容     | 备注 |
+| ---- | ---- | -------- | ---- |
+| mid  | num  | UP主UID  |      |
+| name | str  | UP主昵称 |      |
+| face | str  | UP主头像 |      |
+
+`data`中的`stat`对象：
+
+| 字段       | 类型 | 内容                           | 备注         |
+| ---------- | ---- | ------------------------------ | ------------ |
+| aid        | num  | 视频avID                       |              |
+| view       | num  | 普通：观看次数<br />屏蔽时：-1 |              |
+| danmaku    | num  | 弹幕条数                       |              |
+| reply      | num  | 评论条数                       |              |
+| favorite   | num  | 收藏人数                       |              |
+| coin       | num  | 投币枚数                       |              |
+| share      | num  | 分享次数                       |              |
+| now_rank   | num  | 0                              | 作用尚不明确 |
+| his_rank   | num  | 历史最高排行                   |              |
+| like       | num  | 获赞次数                       |              |
+| dislike    | num  | 0                              | 作用尚不明确 |
+| evaluation | str  | 视频评分                       | 默认为空     |
+
+同`data`中的`dimension`对象
+
+| 字段   | 类型 | 内容         | 备注         |
+| ------ | ---- | ------------ | ------------ |
+| width  | num  | 当前分P 宽度 | 可能为0      |
+| height | num  | 当前分P 高度 | 可能为0      |
+| rotate | num  | 0            | 作用尚不明确 |
+
 **示例：**
 
 查询用户`UID=23215368`的置顶视频
@@ -141,7 +216,7 @@ http://api.bilibili.com/x/space/top/arc?vmid=23215368
 
 `data`数组中的对象：
 
-基本同「[视频详细信息](https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/video/info.md#视频详细信息（avID/bvID互转）)」中的data对象
+同查询用户置顶视频中的`data`对象
 
 **示例：**
 
@@ -1559,4 +1634,418 @@ http://api.bilibili.com/x/space/acc/tags?mid=53456
 	}]
 }
 ```
+
+
+
+## 设置相关
+
+### 修改个人签名
+
+> http://api.bilibili.com/x/member/web/sign/update
+
+*方式：POST*
+
+签名最多支持70个字
+
+修改签名不会立即生效，会等待审核队列稍后生效
+
+需要登录(SESSDATA)
+
+**参数（ application/x-www-form-urlencoded ）：**
+
+| 参数名    | 类型 | 内容                | 必要性 | 备注                   |
+| --------- | ---- | ------------------- | ------ | ---------------------- |
+| user_sign | data | 要设置的签名内容    | 非必要 | 删除签名留空或省去即可 |
+| csrf      | data | cookies中的bili_jct | 必要   |                        |
+
+**json回复：**
+
+根对象：
+
+| 字段    | 类型 | 内容     | 备注                                                         |
+| ------- | ---- | -------- | ------------------------------------------------------------ |
+| code    | num  | 返回值   | 0：成功<br />-101：账号未登录<br />-111：csrf校验失败<br />40022：签名过长 |
+| message | str  | 错误信息 | 默认为0                                                      |
+| ttl     | num  | 1        | 作用尚不明确                                                 |
+
+**示例：**
+
+更新个人标签为`高中技术宅一枚，爱好MC&电子&音乐&数码&编程，资深猿厨`
+
+curl -b "SESSDATA=xxx" -d "user_sign=%E9%AB%98%E4%B8%AD%E6%8A%80%E6%9C%AF%E5%AE%85%E4%B8%80%E6%9E%9A%EF%BC%8C%E7%88%B1%E5%A5%BDMC&%E7%94%B5%E5%AD%90&%E9%9F%B3%E4%B9%90&%E6%95%B0%E7%A0%81&%E7%BC%96%E7%A8%8B%EF%BC%8C%E8%B5%84%E6%B7%B1%E7%8C%BF%E5%8E%A8&csrf=xxx" "http://api.bilibili.com/x/member/web/sign/update"
+
+```json
+{
+    "code":0,
+    "message":"0",
+    "ttl":1
+}
+```
+
+
+
+### 修改用户空间公告
+
+> http://api.bilibili.com/x/space/notice/set
+
+*方式：POST*
+
+需要登录(SESSDATA)
+
+**参数（ application/x-www-form-urlencoded ）：**
+
+| 参数名 | 类型 | 内容                | 必要性 | 备注                                        |
+| ------ | ---- | ------------------- | ------ | ------------------------------------------- |
+| notice | data | 要设置的公告内容    | 非必要 | 删除公告留空或省去即可<br />公告最多150字符 |
+| csrf   | data | cookies中的bili_jct | 必要   |                                             |
+
+**json回复：**
+
+根对象：
+
+| 字段    | 类型 | 内容     | 备注                                                         |
+| ------- | ---- | -------- | ------------------------------------------------------------ |
+| code    | num  | 返回值   | 0：成功<br />-101：账号未登录<br />-111：csrf校验失败<br />-304：未修改<br />-400：请求错误（超出长度限制） |
+| message | str  | 错误信息 | 默认为0                                                      |
+| ttl     | num  | 1        | 作用尚不明确                                                 |
+
+**示例：**
+
+修改个人空间公告为`鸽子`
+
+curl -b "sessdata=xxx" -d "csrf=xxx&notice=%E9%B8%BD%E5%AD%90" "http://api.bilibili.com/x/space/notice/set"
+
+```json
+{
+    "code": 0,
+    "message": "0",
+    "ttl": 1
+}
+```
+
+
+
+### 修改空间隐私权限
+
+> http://space.bilibili.com/ajax/settings/setPrivacy
+
+*方式：POST*
+
+需要登录(SESSDATA)
+
+需要验证`DedeUserID`及`DedeUserID__ckMd5`存在且不为0
+
+需要验证`referer`为 `http://www.bilibili.com`或`https://www.bilibili.com`域名下
+
+**参数（ application/x-www-form-urlencoded ）：**
+
+| 参数名      | 类型 | 内容                | 必要性 | 备注                           |
+| ----------- | ---- | ------------------- | ------ | ------------------------------ |
+| fav_video   | data | 收藏视频            | 非必要 | 0：隐藏<br />1：公开<br />下同 |
+| bangumi     | data | 追番及追剧          | 非必要 |                                |
+| tags        | data | 关注的TAG           | 非必要 |                                |
+| coins_video | data | 投币的视频          | 非必要 |                                |
+| user_info   | data | 个人信息            | 非必要 |                                |
+| played_game | data | 玩过的游戏          | 非必要 |                                |
+| csrf        | data | cookies中的bili_jct | 必要   |                                |
+
+**json回复：**
+
+根对象：
+
+| 字段   | 类型 | 内容     | 备注                                |
+| ------ | ---- | -------- | ----------------------------------- |
+| ststus | bool | 操作结果 | true：操作成功<br />false：操作失败 |
+| data   | str  | 错误信息 | 正确时无此项                        |
+
+**示例：**
+
+设置`关注的TAG`为隐藏
+
+curl --referer "http://www.bilibili.com" -b "SESSDATA=xxx;DedeUserID=1;DedeUserID__ckMd5=1;" -d "csrf=xxx&tags=0" "http://space.bilibili.com/ajax/settings/setPrivacy"
+
+```json
+{
+    "status": true
+}
+```
+
+
+
+### 调整空间板块布局
+
+> http://space.bilibili.com/ajax/settings/setIndexOrder
+
+*方式：POST*
+
+需要登录(SESSDATA)
+
+需要验证`DedeUserID`及`DedeUserID__ckMd5`存在且不为0
+
+需要验证`referer`为 `http://www.bilibili.com`或`https://www.bilibili.com`域名下
+
+**参数（ application/x-www-form-urlencoded ）：**
+
+| 参数名      | 类型 | 内容                | 必要性 | 备注                                                         |
+| ----------- | ---- | ------------------- | ------ | ------------------------------------------------------------ |
+| index_order | data | 布局列表            | 必要   | 每个值之间用","（%2C）分隔<br />先左侧布局再右侧布局<br />值的意义见下表 |
+| csrf        | data | cookies中的bili_jct | 必要   |                                                              |
+
+布局参数`index_order`：
+
+| 值   | 含义                   |
+| ---- | ---------------------- |
+| 1    | （左侧）我的稿件       |
+| 2    | （左侧）我的收藏夹     |
+| 3    | （左侧）订阅番剧       |
+| 4    | （左侧）订阅标签       |
+| 5    | （左侧）最近投币的视频 |
+| 6    | **作用尚不明确**       |
+| 7    | （左侧）我的频道       |
+| 8    | （左侧）我的专栏       |
+| 9    | （左侧）我的相簿       |
+| 21   | （右侧）公告           |
+| 22   | （右侧）直播间         |
+| 23   | （右侧）个人资料       |
+| 24   | （右侧）官方活动       |
+| 25   | （右侧）最近玩的游戏   |
+
+**json回复：**
+
+根对象：
+
+| 字段   | 类型 | 内容     | 备注                                |
+| ------ | ---- | -------- | ----------------------------------- |
+| ststus | bool | 操作结果 | true：操作成功<br />false：操作失败 |
+| data   | str  | 错误信息 | 正确时无此项                        |
+
+**示例：**
+
+调整空间布局为：
+
+>我的稿件            直播间
+>我的专栏            个人资料
+>订阅番剧            公告
+>我的收藏夹        官方活动
+>我的相簿            最近玩的游戏
+>最近投币的视频
+>订阅标签
+>我的频道
+
+curl --referer "http://www.bilibili.com" -b "SESSDATA=xxx;DedeUserID=1;DedeUserID__ckMd5=1;" -d "csrf=xxx&index_order=1%2C8%2C3%2C2%2C9%2C5%2C4%2C7%2C22%2C23%2C21%2C24%2C25%2C6" "http://space.bilibili.com/ajax/settings/setIndexOrder"
+
+```json
+{
+    "status": true
+}
+```
+
+
+
+### 修改个人TAG
+
+> http://api.bilibili.com/x/space/acc/tags/set
+
+*方式：POST*
+
+需要登录(SESSDATA)
+
+需要验证`DedeUserID`存在且不为0
+
+**参数（ application/x-www-form-urlencoded ）：**
+
+| 参数名 | 类型 | 内容                | 必要性 | 备注                                                         |
+| ------ | ---- | ------------------- | ------ | ------------------------------------------------------------ |
+| tags   | data | 要设置的TAG内容     | 非必要 | 删除公告留空或省去即可<br />各TAG长度小于10字符<br />最多5个TAG<br />各TAG之间用","(%2C)分隔<br />重复TAG无效 |
+| csrf   | data | cookies中的bili_jct | 必要   |                                                              |
+
+**json回复：**
+
+根对象：
+
+| 字段    | 类型 | 内容     | 备注                                                         |
+| ------- | ---- | -------- | ------------------------------------------------------------ |
+| code    | num  | 返回值   | 0：成功<br />-101：账号未登录<br />-111：csrf校验失败<br />-400：请求错误（超出长度限制） |
+| message | str  | 错误信息 | 默认为0                                                      |
+| ttl     | num  | 1        | 作用尚不明确                                                 |
+
+**示例：**
+
+修改个人TAG为`minecraft,技术宅,大佬,小哥哥,可爱`
+
+curl -b "SESSDATA=xxx;DedeUserID=1" -d "csrf=xxx&tags=minecraft%2C%E6%8A%80%E6%9C%AF%E5%AE%85%2C%E5%A4%A7%E4%BD%AC%2C%E5%B0%8F%E5%93%A5%E5%93%A5%2C%E5%8F%AF%E7%88%B1" "http://api.bilibili.com/x/space/acc/tags/set"
+
+```json
+{
+    "code": 0,
+    "message": "0",
+    "ttl": 1
+}
+```
+
+
+
+### 修改（添加）置顶视频
+
+> http://api.bilibili.com/x/space/top/arc/set
+
+*方式：POST*
+
+需要登录(SESSDATA)
+
+**参数（ application/x-www-form-urlencoded ）：**
+
+| 参数名 | 类型 | 内容                | 必要性 | 备注               |
+| ------ | ---- | ------------------- | ------ | ------------------ |
+| aid    | data | 置顶目标视频avID    | 非必要 | avID与bvID任选一个 |
+| bvid   | data | 置顶目标视频bvID    | 非必要 | avID与bvID任选一个 |
+| reason | data | 置顶视频备注        | 非必要 | 置顶备注最大40字符 |
+| csrf   | data | cookies中的bili_jct | 必要   |                    |
+
+**json回复：**
+
+根对象：
+
+| 字段    | 类型 | 内容     | 备注                                                         |
+| ------- | ---- | -------- | ------------------------------------------------------------ |
+| code    | num  | 返回值   | 0：成功<br />-101：账号未登录<br />-111：csrf校验失败<br />-304：未修改<br />-400：请求错误<br />53014：稿件已失效<br />53015：备注过长<br />53017：置顶非自己的稿件 |
+| message | str  | 错误信息 | 默认为0                                                      |
+| ttl     | num  | 1        | 作用尚不明确                                                 |
+
+**示例：**
+
+置顶视频`av98948772`/`BV1n741127LD`
+
+curl -b "SESSDATA=xxx" -b "aid=98948772&csrf=xxx" "http://api.bilibili.com/x/space/top/arc/set"
+
+同curl -b "SESSDATA=xxx" -b "bvid=BV1n741127LD&csrf=xxx" "http://api.bilibili.com/x/space/top/arc/set"
+
+```json
+{
+    "code": 0,
+    "message": "0",
+    "ttl": 1
+}
+```
+
+
+
+### 取消置顶视频
+
+> http://api.bilibili.com/x/space/top/arc/cancel
+
+*方式：POST*
+
+需要登录(SESSDATA)
+
+**参数（ application/x-www-form-urlencoded ）：**
+
+| 参数名 | 类型 | 内容                | 必要性 | 备注 |
+| ------ | ---- | ------------------- | ------ | ---- |
+| csrf   | data | cookies中的bili_jct | 必要   |      |
+
+**json回复：**
+
+根对象：
+
+| 字段    | 类型 | 内容     | 备注                                                         |
+| ------- | ---- | -------- | ------------------------------------------------------------ |
+| code    | num  | 返回值   | 0：成功<br />-101：账号未登录<br />-111：csrf校验失败<br />-400：请求错误（重复取消） |
+| message | str  | 错误信息 | 默认为0                                                      |
+| ttl     | num  | 1        | 作用尚不明确                                                 |
+
+**示例：**
+
+curl -b "SESSDATA=xxx" -d "csrf=xxx" "http://api.bilibili.com/x/space/top/arc/cancel"
+
+```json
+{
+    "code": 0,
+    "message": "0",
+    "ttl": 1
+}
+```
+
+
+
+### 添加代表作视频
+
+> http://api.bilibili.com/x/space/masterpiece/add
+
+*方式：POST*
+
+需要登录(SESSDATA)
+
+代表作上限为3个稿件
+
+**参数（ application/x-www-form-urlencoded ）：**
+
+| 参数名 | 类型 | 内容                | 必要性 | 备注               |
+| ------ | ---- | ------------------- | ------ | ------------------ |
+| aid    | data | 置顶目标视频avID    | 非必要 | avID与bvID任选一个 |
+| bvid   | data | 置顶目标视频bvID    | 非必要 | avID与bvID任选一个 |
+| reason | data | 代表作备注          | 非必要 | 置顶备注最大40字符 |
+| csrf   | data | cookies中的bili_jct | 必要   |                    |
+
+**json回复：**
+
+根对象：
+
+| 字段    | 类型 | 内容     | 备注                                                         |
+| ------- | ---- | -------- | ------------------------------------------------------------ |
+| code    | num  | 返回值   | 0：成功<br />-101：账号未登录<br />-111：csrf校验失败<br />-400：请求错误<br />53014：稿件已失效<br />53015：备注过长<br />53017：置顶非自己的稿件<br />53019：达到上限<br />53020：已经存在该稿件 |
+| message | str  | 错误信息 | 默认为0                                                      |
+| ttl     | num  | 1        | 作用尚不明确                                                 |
+
+**示例：**
+
+添加视频`av94916552`/`BV1ZE411K7ux`到代表作列表
+
+curl -b "SESSDATA=xxx" -d "csrf=xxx&aid=94916552" "http://api.bilibili.com/x/space/masterpiece/add"
+
+同curl -b "SESSDATA=xxx" -d "csrf=xxx&bvid=BV1ZE411K7ux" "http://api.bilibili.com/x/space/masterpiece/add"
+
+```json
+{
+    "code": 0,
+    "message": "0",
+    "ttl": 1
+}
+```
+
+
+
+### 删除代表作视频
+
+> http://api.bilibili.com/x/space/masterpiece/cancel
+
+*方式：POST*
+
+需要登录(SESSDATA)
+
+**参数（ application/x-www-form-urlencoded ）：**
+
+| 参数名 | 类型 | 内容                 | 必要性 | 备注               |
+| ------ | ---- | -------------------- | ------ | ------------------ |
+| aid    | data | 要删除的目标视频avID | 非必要 | avID与bvID任选一个 |
+| bvid   | data | 要删除的目标视频bvID | 非必要 | avID与bvID任选一个 |
+| csrf   | data | cookies中的bili_jct  | 必要   |                    |
+
+**json回复：**
+
+根对象：
+
+| 字段    | 类型 | 内容     | 备注                                                         |
+| ------- | ---- | -------- | ------------------------------------------------------------ |
+| code    | num  | 返回值   | 0：成功<br />-101：账号未登录<br />-111：csrf校验失败<br />-400：请求错误<br />53021：置顶列表中没有该视频 |
+| message | str  | 错误信息 | 默认为0                                                      |
+| ttl     | num  | 1        | 作用尚不明确                                                 |
+
+**示例：**
+
+删除置顶视频`av59765630`/`BV1Yt41137T6`
+
+curl -b "SESSDATA=xxx" -d "csrf=xxx&aid=59765630" "http://api.bilibili.com/x/space/masterpiece/cancel"
+
+同curl -b "SESSDATA=xxx" -d "csrf=xxx&bvid=BV1Yt41137T6" "http://api.bilibili.com/x/space/masterpiece/cancel"
 

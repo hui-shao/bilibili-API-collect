@@ -15,7 +15,7 @@
 计划整理分类&目录：（√代表已完成，x代表正在施工...）
 
 - cookie
-- 图片格式化
+- [图片格式化](other/picture.md)√
 - [登录](login)
   - [二维码登录](login/QR.md)√
   - 密码&短信登录
@@ -36,7 +36,7 @@
   - [状态数](video/status_number.md)√
   - [快照](video/snapshot.md)√
   - [点赞&投币&收藏](video/like_coin_fav.md)√
-  - TAG
+  - [TAG](video/tags.md)x
   - [视频推荐](video/recommend.md)√
   - 播放&下载地址
   - 互动视频
@@ -126,3 +126,40 @@ B站专栏同步推出[《B站api研究记》](https://www.bilibili.com/read/rea
 不了解http的请移步，[传送门](https://www.cnblogs.com/an-wen/p/11180076.html)
 
 不了解json的请移步，[传送门](https://www.sojson.com/json/json_index.html)
+
+
+
+**相关项目**：
+
+库及文档：
+
+https://github.com/jingyuexing/bilibiliAPI
+
+https://github.com/fython/BilibiliAPIDocs
+
+https://github.com/czp3009/bilibili-api
+
+https://github.com/Vespa314/bilibili-api
+
+https://github.com/Hsury/Bilibili-Toolkit
+
+成品：
+
+https://github.com/zyzsdy/biliroku
+
+https://github.com/bilibili-helper/bilibili-helper-o
+
+https://github.com/apachecn/BiliDriveEx
+
+https://github.com/apachecn/CDNDrive
+
+https://github.com/Hsury/BiliDrive
+
+https://github.com/Tsuk1ko/bilibili-live-chat
+
+其他：
+
+https://github.com/Hsury/Geetest3-Crack
+
+https://github.com/SocialSisterYi/bv2av_convert
+
