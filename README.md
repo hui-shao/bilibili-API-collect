@@ -16,17 +16,17 @@
         <img src="https://img.shields.io/github/license/SocialSisterYi/bilibili-API-collect.svg" alt="GitHub license"/>
     </a>
 </p>
-
-
-<h3 align="center">野生API文档</h3> 
-<h3 align="center">不断更新中....</h3> 
-本项目旨在对B站web端、移动端以及TV端散落在世界各地的野生api进行收集整理，研究使用方法并对其进行说明，运用了黑箱法、控制变量法、js逆向分析法、网络抓包法等研究办法
+<h3 align="center">野生API文档</h3>  
+<h3 align="center">不断更新中....</h3>  
+本项目旨在对B站web端、移动端以及TV端散落在世界各地的野生api进行收集整理，研究使用方法并对其进行说明，运用了黑箱法、控制变量法、js逆向分析法、apk拆包及反编译法、网络抓包法等研究办法
 
 所有api均为标准http协议，返回数据大都为json或protobuf
 
 PS：所有http协议地址均可使用https，文档中为了统一写作`http`，为了数据安全建议所有接口使用https
 
-小小的Demo：[av583785685](https://www.bilibili.com/video/av583785685)
+小小的Demo：~~av583785685~~[视频失效原因](https://shakaianee.top/archives/56/)（[Youtube备链](https://www.youtube.com/watch?v=nfF91Z6fqGk)）
+
+联动项目：[Hsury/Bilibili-Toolkit](https://github.com/Hsury/Bilibili-Toolkit)
 
 ---
 
@@ -49,10 +49,10 @@ PS：所有http协议地址均可使用https，文档中为了统一写作`http`
 - [grpc接口](grpc_api)×
 - [登录](login)
   - [登录操作（人机认证）](login/login_action)√
-    + [短信登录](login/login_action/SMS.md)√
-    + [密码登录](login/login_action/password.md)√
-    + [二维码登录](login/login_action/QR.md)√
-    + SNS登录（QQ&微博）
+    - [短信登录](login/login_action/SMS.md)√
+    - [密码登录](login/login_action/password.md)√
+    - [二维码登录](login/login_action/QR.md)√
+    - SNS登录（QQ&微博）
   - [登录基本信息](login/login_info.md)√
   - [个人中心](login/member_center.md)×
   - [注销登录](login/exit.md)×
@@ -87,7 +87,7 @@ PS：所有http协议地址均可使用https，文档中为了统一写作`http`
   - [protobuf实时弹幕](danmaku/danmaku_proto.md)√
   - [protobuf弹幕元数据（BAS弹幕/互动弹幕）](danmaku/danmaku_view_proto.md)√
   - [xml实时弹幕](danmaku/danmaku_xml.md)√
-  - [xml历史弹幕](danmaku/history.md)√
+  - [历史弹幕](danmaku/history.md)√
   - [快照](danmaku/snapshot.md)√
   - [弹幕操作](danmaku/action.md)×
   - 高级弹幕
@@ -157,7 +157,10 @@ PS：所有http协议地址均可使用https，文档中为了统一写作`http`
 - [历史记录&稍后再看](history&toview)
   - [历史记录](history&toview/history.md)√
   - [稍后再看](history&toview/toview.md)√
-- 收藏夹
+- [收藏夹](fav)
+  - [基本信息](fav/info.md)√
+  - [收藏夹内容](fav/list.md)√
+  - [收藏夹操作](fav/action.md)×
 - [课程](cheese)
   - [课程基本信息](cheese/info.md)√
   - 已购课程
@@ -171,7 +174,10 @@ PS：所有http协议地址均可使用https，文档中为了统一写作`http`
   - 直播间操作
   - [直播视频流](live/live_stream.md)×
   - [直播信息流](live/message_stream.md)×
-- 答题
+- [转正答题](newbie_exam)
+  - [查询信息](newbie_exam/info.md)×
+  - [拉取题目](newbie_exam/fetch.md)√
+  - [操作](newbie_exam/action.md)×
 - B币钱包
   - 基本信息
   - B币充值
@@ -180,8 +186,8 @@ PS：所有http协议地址均可使用https，文档中为了统一写作`http`
 - 哔哩哔哩游戏
 - 轻视频
 - [终端网络查询](clientinfo)
-  	- [基于ip的地理位置查询](clientinfo/ip.md)√
-  	- [终端信息查询](clientinfo/client_info.md)√
+  - [基于ip的地理位置查询](clientinfo/ip.md)√
+  - [终端信息查询](clientinfo/client_info.md)√
 - [其他](other)
   - [获取当前时间戳](other/time_stamp.md)√
 - [web端组件](web_widget)
@@ -212,9 +218,9 @@ protobuf序列格式：[传送门](https://www.jianshu.com/p/a24c88c0526a )
 
 QQ粉丝交流群：[1136462265](https://jq.qq.com/?_wv=1027&k=s1M0LCcu)
 
-B站空间：https://space.bilibili.com/293793435
+B站空间：<https://space.bilibili.com/293793435>
 
-个人博客：https://shakaianee.top
+个人博客：<https://shakaianee.top>
 
 # 发电
 
@@ -224,22 +230,21 @@ B站空间：https://space.bilibili.com/293793435
 
 <img src="imgs/sponsorQR.jpg" width="300" height="300">
 
-# 相关项目：
+# 相关项目
 
-## 库及文档：
+## 库及文档
 
 - [jingyuexing/bilibiliAPI](https://github.com/jingyuexing/bilibiliAPI)
 - [fython/BilibiliAPIDocs](https://github.com/fython/BilibiliAPIDocs)
 - [czp3009/bilibili-api](https://github.com/czp3009/bilibili-api)
 - [Vespa314/bilibili-api](https://github.com/Vespa314/bilibili-api)
-- [Bilibili-Toolkit](https://github.com/Hsury/Bilibili-Toolkit)
 - [whjstc/openbilibili-go-common-1](https://github.com/whjstc/openbilibili-go-common-1)
 - [wnstar/bili-utils](https://github.com/wnstar/bili-utils)
 - [lovelyyoshino/Bilibili-Live-API](https://github.com/lovelyyoshino/Bilibili-Live-API)
 - [flaribbit/bilibili-manga-spider](https://github.com/flaribbit/bilibili-manga-spider)
 - [simon300000/bili-api](https://github.com/simon300000/bili-api)
 
-## 成品：
+## 成品
 
 - [3Shain/BiliChat](https://github.com/3Shain/BiliChat) : 基于h5的B站直播弹幕姬
 - [AncientLysine/BiliLocal](https://github.com/AncientLysine/BiliLocal):本地弹幕播放器
@@ -256,6 +261,6 @@ B站空间：https://space.bilibili.com/293793435
 - [JunzhouLiu/BILIBILI-HELPER](https://github.com/JunzhouLiu/BILIBILI-HELPER):利用GitHub Action定时任务实现B站，哔哩哔哩（Bilibili）每日自动投币，签到，银瓜子兑换硬币，领取大会员福利，大会员月底给自己充电等。每天轻松获取65经验值。
 - [the1812/Bilibili-Evolved](https://github.com/the1812/Bilibili-Evolved):强大的哔哩哔哩增强脚本: 下载视频, 音乐, 封面, 弹幕 / 简化直播间, 评论区, 首页 / 自定义顶栏, 删除广告, 夜间模式 / 触屏设备支持
 
-## 其他：
+## 其他
 
 - [kuresaru/geetest-validator](https://github.com/kuresaru/geetest-validator):geetest调试器
